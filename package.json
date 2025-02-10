@@ -1,0 +1,33 @@
+{
+  "sideEffects": false,
+  "type": "module",
+  "name": "@nichtsam/helmet",
+  "version": "0.0.0",
+  "license": "MIT",
+  "keywords": ["web", "security", "helmet"],
+  "author": {
+    "name": "Samuel Jensen",
+    "url": "https://nichtsam.com"
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "quality": "biome check .",
+    "quality:fix": "biome check . --write --unsafe"
+  },
+  "files": ["build", "package.json", "README.md"],
+  "exports": {
+    ".": "./build/index.js",
+    "./*": "./build/rules/*.js",
+    "./package.json": "./package.json"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "@total-typescript/tsconfig": "1.0.4",
+    "@types/node": "^22.13.1",
+    "typescript": "5.7.3"
+  },
+  "engines": {
+    "node": "22"
+  }
+}

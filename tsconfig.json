@@ -1,0 +1,8 @@
+{
+  "extends": "@total-typescript/tsconfig/tsc/no-dom/library",
+  "include": ["src/**/*"],
+  "exclude": ["src/**/*.test.*"],
+  "compilerOptions": {
+    "outDir": "./build"
+  }
+}
