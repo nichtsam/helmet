@@ -9,6 +9,14 @@
     "name": "Samuel Jensen",
     "url": "https://nichtsam.com"
   },
+  "homepage": "https://github.com/nichtsam/helmet",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nichtsam/helmet"
+  },
+  "bugs": {
+    "url": "https://github.com/nichtsam/helmet/issues"
+  },
   "scripts": {
     "build": "tsc",
     "typecheck": "tsc --noEmit",
