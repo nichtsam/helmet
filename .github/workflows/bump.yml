@@ -1,0 +1,46 @@
+name: Bump version
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Type of version to bump"
+        required: true
+        type: choice
+        options:
+          - major
+          - minor
+          - patch
+
+jobs:
+  bump-version:
+    name: Bump version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+
+      - name: Setup bun
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Setup git
+        run: |
+          git config user.name ${{secrets.GIT_USER_NAME}}
+          git config user.email ${{secrets.GIT_USER_EMAIL}}
+
+      - name: Bump version
+        run: npm version ${{ github.event.inputs.version }}
+
+      - name: Quality fix
+        run: bun run quality:fix
+
+      - name: Push latest version
+        run: git push origin main --follow-tags
