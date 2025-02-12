@@ -1,194 +1,76 @@
 import {
-  type ContentSecurityPolicyOptions,
-  type CrossOriginEmbedderPolicyOptions,
-  type CrossOriginOpenerPolicyOptions,
-  type CrossOriginResourcePolicyOptions,
-  type ReferrerPolicyOptions,
-  type StrictTransportSecurityOptions,
-  type XDnsPrefetchControlOptions,
-  type XFrameOptionsOptions,
-  type XPermittedCrossDomainPoliciesOptions,
-  contentSecurityPolicy,
-  crossOriginEmbedderPolicy,
-  crossOriginOpenerPolicy,
-  crossOriginResourcePolicy,
-  originAgentCluster,
-  referrerPolicy,
-  strictTransportSecurity,
-  xContentTypeOptions,
-  xDnsPrefetchControl,
-  xDownloadOptions,
-  xFrameOptions,
-  xPermittedCrossDomainPolicies,
-  xXssProtection,
-} from "./rules/index.js";
+  type ContentSecureOptions,
+  contentSecurity,
+} from "./rules/content/index.js";
+import {
+  type GeneralSecureOptions,
+  generalSecurity,
+} from "./rules/general/index.js";
+import {
+  type ResourceSharingSecureOptions,
+  resourceSharingSecurity,
+} from "./rules/resourceSharing/index.js";
+
+const headers = new Headers();
+helmet(headers, { content: { contentSecurityPolicy: {} } });
+
+helmet(headers, { resourceSharing: true });
 
 /**
- * Sets sensible security headers onto a Headers instance.
- *
- * This utility function configures security headers based on the provided settings.
+ * Applies security headers to a `Headers` instance with sensible defaults.
+ * General security headers are always set, while content and resource-sharing headers can be opted in.
  */
-export function helmet(
-  headers: Headers,
-  { options = {}, html = false, cors = false }: HelmetOptions = {},
-) {
-  switch (options.crossOriginResourcePolicy) {
+export function helmet(headers: Headers, options: HelmetOptions = {}) {
+  switch (options.general) {
     case undefined:
     case true:
-      crossOriginResourcePolicy(headers, cors ? "cross-origin" : "same-origin");
+      generalSecurity(headers);
       break;
     case false:
       break;
     default:
-      crossOriginResourcePolicy(headers, options.crossOriginResourcePolicy);
+      generalSecurity(headers, options.general);
   }
 
-  if (options.originAgentCluster ?? true) {
-    originAgentCluster(headers);
-  }
-
-  switch (options.referrerPolicy) {
+  switch (options.content) {
     case undefined:
-    case true:
-      referrerPolicy(headers);
-      break;
     case false:
       break;
+    case true:
+      contentSecurity(headers);
+      break;
     default:
-      referrerPolicy(headers, options.referrerPolicy);
+      contentSecurity(headers, options.content);
   }
 
-  switch (options.strictTransportSecurity) {
+  switch (options.resourceSharing) {
     case undefined:
-    case true:
-      strictTransportSecurity(headers);
-      break;
     case false:
       break;
-    default:
-      strictTransportSecurity(headers, options.strictTransportSecurity);
-  }
-
-  if (options.xContentTypeOptions ?? true) {
-    xContentTypeOptions(headers);
-  }
-
-  switch (options.xDnsPrefetchControl) {
-    case undefined:
     case true:
-      xDnsPrefetchControl(headers);
-      break;
-    case false:
+      resourceSharingSecurity(headers);
       break;
     default:
-      xDnsPrefetchControl(headers, options.xDnsPrefetchControl);
-  }
-
-  switch (options.xPermittedCrossDomainPolicies) {
-    case undefined:
-    case true:
-      xPermittedCrossDomainPolicies(headers);
-      break;
-    case false:
-      break;
-    default:
-      xPermittedCrossDomainPolicies(
-        headers,
-        options.xPermittedCrossDomainPolicies,
-      );
-  }
-
-  if (options.xXssProtection ?? true) {
-    xXssProtection(headers);
-  }
-
-  if (html) {
-    switch (options.contentSecurityPolicy) {
-      case undefined:
-      case true:
-        contentSecurityPolicy(headers);
-        break;
-      case false:
-        break;
-      default:
-        contentSecurityPolicy(headers, options.contentSecurityPolicy);
-    }
-
-    switch (options.crossOriginOpenerPolicy) {
-      case undefined:
-      case true:
-        crossOriginOpenerPolicy(headers);
-        break;
-      case false:
-        break;
-      default:
-        crossOriginOpenerPolicy(headers, options.crossOriginOpenerPolicy);
-    }
-
-    switch (options.crossOriginEmbedderPolicy) {
-      case undefined:
-      case true:
-        crossOriginEmbedderPolicy(headers);
-        break;
-      case false:
-        break;
-      default:
-        crossOriginEmbedderPolicy(headers, options.crossOriginEmbedderPolicy);
-    }
-
-    if (options.xDownloadOptions ?? true) {
-      xDownloadOptions(headers);
-    }
-
-    switch (options.xFrameOptions) {
-      case undefined:
-      case true:
-        xFrameOptions(headers);
-        break;
-      case false:
-        break;
-      default:
-        xFrameOptions(headers, options.xFrameOptions);
-    }
+      resourceSharingSecurity(headers, options.resourceSharing);
   }
 }
 
 export type HelmetOptions = {
   /**
-   * Options to enable, disable defaults, or customized security headers for your own need
+   * Configures general security headers.
+   * Enabled by default.
    */
-  options?: SecureOptions;
+  general?: GeneralSecureOptions | boolean;
   /**
-   * Whether the content type is html, this enables document specific security headers.
-   * @default {true}
+   * Configures security headers relevant to content, typically for `text/html` responses.
+   * Disabled by default.
+   *
+   * @see https://developer.mozilla.org/en-US/docs/Glossary/Browsing_context
    */
-  html?: boolean;
+  content?: ContentSecureOptions | boolean;
   /**
-   * Whether the content is shared cross-origin, this modifys defaults to support cross origin resource sharing.
-   * @default {false}
+   * Configures security headers related to resource sharing (CORS).
+   * Disabled by default.
    */
-  cors?: boolean;
-};
-
-export type SecureOptions = GeneralSecureOptions & HtmlSpecificSecureOptions;
-
-type GeneralSecureOptions = {
-  crossOriginResourcePolicy?: CrossOriginResourcePolicyOptions | boolean;
-  originAgentCluster?: boolean;
-  referrerPolicy?: ReferrerPolicyOptions | boolean;
-  strictTransportSecurity?: StrictTransportSecurityOptions | boolean;
-  xContentTypeOptions?: boolean;
-  xDnsPrefetchControl?: XDnsPrefetchControlOptions | boolean;
-  xPermittedCrossDomainPolicies?:
-    | XPermittedCrossDomainPoliciesOptions
-    | boolean;
-  xXssProtection?: boolean;
-};
-
-type HtmlSpecificSecureOptions = {
-  contentSecurityPolicy?: ContentSecurityPolicyOptions | boolean;
-  crossOriginOpenerPolicy?: CrossOriginOpenerPolicyOptions | boolean;
-  crossOriginEmbedderPolicy?: CrossOriginEmbedderPolicyOptions | boolean;
-  xDownloadOptions?: boolean;
-  xFrameOptions?: XFrameOptionsOptions | boolean;
+  resourceSharing?: ResourceSharingSecureOptions | boolean;
 };

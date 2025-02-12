@@ -1,4 +1,4 @@
-import type { SmartString } from "../helpers/types.js";
+import type { SmartString } from "../../helpers/types.js";
 
 /**
  * Sets `Content-Security-Policy` headers onto a `Headers` instance.
