@@ -2,9 +2,13 @@
   "sideEffects": false,
   "type": "module",
   "name": "@nichtsam/helmet",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
-  "keywords": ["web", "security", "helmet"],
+  "keywords": [
+    "web",
+    "security",
+    "helmet"
+  ],
   "author": {
     "name": "Samuel Jensen",
     "url": "https://nichtsam.com"
@@ -23,7 +27,11 @@
     "quality": "biome check .",
     "quality:fix": "biome check . --write --unsafe"
   },
-  "files": ["build", "package.json", "README.md"],
+  "files": [
+    "build",
+    "package.json",
+    "README.md"
+  ],
   "exports": {
     ".": "./build/index.js",
     "./node-http": "./build/node-http.js",
