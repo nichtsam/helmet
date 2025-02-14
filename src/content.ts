@@ -1,18 +1,21 @@
 import {
   type ContentSecurityPolicyOptions,
   contentSecurityPolicy,
-} from "./content-security-policy.js";
+} from "./rules/content/content-security-policy.js";
 import {
   type CrossOriginEmbedderPolicyOptions,
   crossOriginEmbedderPolicy,
-} from "./cross-origin-embedder-policy.js";
+} from "./rules/content/cross-origin-embedder-policy.js";
 import {
   type CrossOriginOpenerPolicyOptions,
   crossOriginOpenerPolicy,
-} from "./cross-origin-opener-policy.js";
-import { xDownloadOptions } from "./x-download-options.js";
-import { type XFrameOptionsOptions, xFrameOptions } from "./x-frame-options.js";
-import { xXssProtection } from "./x-xss-protection.js";
+} from "./rules/content/cross-origin-opener-policy.js";
+import { xDownloadOptions } from "./rules/content/x-download-options.js";
+import {
+  type XFrameOptionsOptions,
+  xFrameOptions,
+} from "./rules/content/x-frame-options.js";
+import { xXssProtection } from "./rules/content/x-xss-protection.js";
 
 /**
  * Applies security headers for content resources that has a browsing context, typically text/html.

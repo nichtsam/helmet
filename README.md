@@ -70,9 +70,9 @@ This allows for a layered application approach to better suit individual routes.
 For example:
 
 ```ts
-import { generalSecurity } from "@nichtsam/helmet/rules/general/index";
-import { contentSecurity } from "@nichtsam/helmet/rules/content/index";
-import { resourceSharingSecurity } from "@nichtsam/helmet/rules/resourceSharing/index";
+import { generalSecurity } from "@nichtsam/helmet/general";
+import { contentSecurity } from "@nichtsam/helmet/content";
+import { resourceSharingSecurity } from "@nichtsam/helmet/resourceSharing";
 
 const headers = new Headers();
 // on root level

@@ -1,7 +1,7 @@
 import {
   type CrossOriginResourcePolicyOptions,
   crossOriginResourcePolicy,
-} from "./cross-origin-resource-policy.js";
+} from "./rules/resourceSharing/cross-origin-resource-policy.js";
 
 /**
  * Sets appropriate resource-sharing headers onto a `Headers` instance based on the specified strategy and options.

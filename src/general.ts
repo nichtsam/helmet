@@ -1,23 +1,22 @@
-import { crossOriginResourcePolicy } from "../resourceSharing/cross-origin-resource-policy.js";
-import { resourceSharingSecurity } from "../resourceSharing/index.js";
-import { originAgentCluster } from "./origin-agent-cluster.js";
+import { resourceSharingSecurity } from "./resourceSharing.js";
+import { originAgentCluster } from "./rules/general/origin-agent-cluster.js";
 import {
   type ReferrerPolicyOptions,
   referrerPolicy,
-} from "./referrer-policy.js";
+} from "./rules/general/referrer-policy.js";
 import {
   type StrictTransportSecurityOptions,
   strictTransportSecurity,
-} from "./strict-transport-security.js";
-import { xContentTypeOptions } from "./x-content-type-options.js";
+} from "./rules/general/strict-transport-security.js";
+import { xContentTypeOptions } from "./rules/general/x-content-type-options.js";
 import {
   type XDnsPrefetchControlOptions,
   xDnsPrefetchControl,
-} from "./x-dns-prefetch-control.js";
+} from "./rules/general/x-dns-prefetch-control.js";
 import {
   type XPermittedCrossDomainPoliciesOptions,
   xPermittedCrossDomainPolicies,
-} from "./x-permitted-cross-domain-policies.js";
+} from "./rules/general/x-permitted-cross-domain-policies.js";
 
 /**
  * Applies general security headers with sensible defaults.

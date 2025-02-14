@@ -1,15 +1,9 @@
-import {
-  type ContentSecureOptions,
-  contentSecurity,
-} from "./rules/content/index.js";
-import {
-  type GeneralSecureOptions,
-  generalSecurity,
-} from "./rules/general/index.js";
+import { type ContentSecureOptions, contentSecurity } from "./content.js";
+import { type GeneralSecureOptions, generalSecurity } from "./general.js";
 import {
   type ResourceSharingSecureOptions,
   resourceSharingSecurity,
-} from "./rules/resourceSharing/index.js";
+} from "./resourceSharing.js";
 
 const headers = new Headers();
 helmet(headers, { content: { contentSecurityPolicy: {} } });
