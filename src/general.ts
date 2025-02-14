@@ -1,5 +1,4 @@
 import { resourceSharingSecurity } from "./resourceSharing.js";
-import { originAgentCluster } from "./rules/general/origin-agent-cluster.js";
 import {
   type ReferrerPolicyOptions,
   referrerPolicy,
@@ -27,10 +26,6 @@ export function generalSecurity(
 ) {
   if (options.sameOrigin ?? true) {
     resourceSharingSecurity(headers, { strategy: "same-origin" });
-  }
-
-  if (options.originAgentCluster ?? true) {
-    originAgentCluster(headers);
   }
 
   switch (options.referrerPolicy) {
@@ -87,7 +82,6 @@ export function generalSecurity(
 
 export type GeneralSecureOptions = {
   sameOrigin?: boolean;
-  originAgentCluster?: boolean;
   referrerPolicy?: ReferrerPolicyOptions | boolean;
   strictTransportSecurity?: StrictTransportSecurityOptions | boolean;
   xContentTypeOptions?: boolean;

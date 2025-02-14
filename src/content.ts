@@ -10,6 +10,7 @@ import {
   type CrossOriginOpenerPolicyOptions,
   crossOriginOpenerPolicy,
 } from "./rules/content/cross-origin-opener-policy.js";
+import { originAgentCluster } from "./rules/content/origin-agent-cluster.js";
 import { xDownloadOptions } from "./rules/content/x-download-options.js";
 import {
   type XFrameOptionsOptions,
@@ -27,6 +28,10 @@ export function contentSecurity(
   headers: Headers,
   options: ContentSecureOptions = {},
 ) {
+  if (options.originAgentCluster ?? true) {
+    originAgentCluster(headers);
+  }
+
   if (options.xXssProtection ?? true) {
     xXssProtection(headers);
   }
@@ -81,6 +86,7 @@ export function contentSecurity(
 }
 
 export type ContentSecureOptions = {
+  originAgentCluster?: boolean;
   contentSecurityPolicy?: ContentSecurityPolicyOptions | boolean;
   crossOriginOpenerPolicy?: CrossOriginOpenerPolicyOptions | boolean;
   crossOriginEmbedderPolicy?: CrossOriginEmbedderPolicyOptions | boolean;
