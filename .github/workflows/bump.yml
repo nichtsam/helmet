@@ -40,7 +40,9 @@ jobs:
         run: npm version ${{ github.event.inputs.version }}
 
       - name: Quality fix
-        run: bun run quality:fix
+        run: |
+          bun run quality:fix 
+          git add .
 
       - name: Push latest version
         run: git push origin main --follow-tags
