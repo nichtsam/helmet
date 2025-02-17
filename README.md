@@ -3,6 +3,17 @@
 Helps secure applications by setting HTTP response headers.
 Inspired by [`helmet`](https://github.com/helmetjs/helmet) and [`http-helmet`](https://github.com/mcansh/http-helmet).
 
+## Why?
+
+[`helmet`](https://github.com/helmetjs/helmet) applies security headers globally without considering the specific content type of each response. While this approach works for many cases, it can lead to unnecessary or misapplied headers. For example, Content Security Policy (CSP) should be specific to the response’s content type, and `X-Download-Options` only matters for document responses, whereas headers like `X-Content-Type-Options` and `Strict-Transport-Security` are universally applicable.
+
+To improve clarity and control, I categorized security headers into three groups:
+	1.	General – Applies to all resources, ensuring broad security coverage.
+	2.	Content – Applies based on the response’s content type.
+	3.	Resource Sharing – Related to cross-origin policies.
+
+This approach ensures that security headers are applied in a structured manner, improving maintainability and reducing unnecessary overhead. Additionally, this package is designed to work seamlessly with both the Web Fetch API’s `Headers` and `http.ServerResponse`, making it more flexible across different environments.
+
 ## Overview
 
 This package provides a flexible and modular way for managing security headers in a structured manner.
