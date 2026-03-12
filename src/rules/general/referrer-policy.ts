@@ -19,5 +19,5 @@ export type ReferrerPolicyDirective =
   | "origin-when-cross-origin"
   | "same-origin"
   | "strict-origin"
-  | "strict-origin-when-cross-origin (default)"
+  | "strict-origin-when-cross-origin"
   | "unsafe-url";
