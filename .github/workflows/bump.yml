@@ -42,7 +42,7 @@ jobs:
       - name: Quality fix
         run: |
           bun run quality:fix 
-          git commit -a --amend --no-edit
+          git commit -a -m "format"
 
       - name: Push latest version
         run: git push origin main --follow-tags
