@@ -1,3 +1,7 @@
+<a href="https://www.npmjs.com/package/@nichtsam/helmet">
+  <img alt="NPM Downloads" src="https://img.shields.io/npm/dm/%40nichtsam%2Fhelmet">
+</a>
+
 # Helmet Security Headers Library
 
 Helps secure applications by setting HTTP response headers.
