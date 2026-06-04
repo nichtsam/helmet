@@ -14,7 +14,13 @@ describe("resourceSharingSecurity", () => {
     expect(headers.get("Cross-Origin-Resource-Policy")).toBe("cross-origin");
   });
 
-  test("does not apply any default when strategy is 'none'", () => {
+  test("does not apply any default when strategy is 'custom'", () => {
+    const headers = new Headers();
+    resourceSharingSecurity(headers, { strategy: "custom" });
+    expect(headers.has("Cross-Origin-Resource-Policy")).toBe(false);
+  });
+
+  test("treats the deprecated 'none' strategy as 'custom'", () => {
     const headers = new Headers();
     resourceSharingSecurity(headers, { strategy: "none" });
     expect(headers.has("Cross-Origin-Resource-Policy")).toBe(false);

@@ -16,7 +16,7 @@ export function resourceSharingSecurity(
   switch (options.crossOriginResourcePolicy) {
     case undefined:
     case true:
-      if (options.strategy === "none") {
+      if (options.strategy === "custom" || options.strategy === "none") {
         break;
       }
       crossOriginResourcePolicy(headers, options.strategy);
@@ -29,6 +29,15 @@ export function resourceSharingSecurity(
 }
 
 export type ResourceSharingSecureOptions = {
-  strategy: "same-origin" | "cross-origin" | "none";
+  /**
+   * Different strategies result in different default security
+   * headers and configurations being applied.
+   *
+   * Use "custom" to disable automatic defaults and configure
+   * all headers manually.
+   *
+   * "none" is a deprecated alias of "custom".
+   */
+  strategy: "same-origin" | "cross-origin" | "custom" | "none";
   crossOriginResourcePolicy?: CrossOriginResourcePolicyOptions | boolean;
 };
