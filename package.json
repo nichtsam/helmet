@@ -5,7 +5,11 @@
   "version": "0.3.3",
   "packageManager": "pnpm@11.5.1",
   "license": "MIT",
-  "keywords": ["web", "security", "helmet"],
+  "keywords": [
+    "web",
+    "security",
+    "helmet"
+  ],
   "author": {
     "name": "Samuel Jensen",
     "url": "https://nichtsam.com"
@@ -25,7 +29,11 @@
     "quality:fix": "biome check . --write --unsafe",
     "test": "vitest run"
   },
-  "files": ["build", "package.json", "README.md"],
+  "files": [
+    "build",
+    "package.json",
+    "README.md"
+  ],
   "exports": {
     ".": "./build/index.js",
     "./node-http": "./build/node-http.js",
@@ -36,7 +44,7 @@
     "./package.json": "./package.json"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
+    "@biomejs/biome": "2.4.16",
     "@total-typescript/tsconfig": "1.0.4",
     "@types/node": "^22.13.1",
     "typescript": "5.7.3",

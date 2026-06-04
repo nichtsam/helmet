@@ -1,5 +1,5 @@
 import type { ServerResponse } from "node:http";
-import { type HelmetOptions, helmet as _helmet } from "./index.js";
+import { helmet as _helmet, type HelmetOptions } from "./index.js";
 
 /**
  * Sets sensible security headers onto `http.ServerResponse`.
