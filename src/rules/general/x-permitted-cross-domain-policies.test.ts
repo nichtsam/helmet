@@ -1,4 +1,4 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, test } from "vitest";
 import { xPermittedCrossDomainPolicies } from "./x-permitted-cross-domain-policies";
 
 describe("xPermittedCrossDomainPolicies", () => {

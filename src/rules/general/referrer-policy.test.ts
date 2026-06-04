@@ -1,4 +1,4 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, test } from "vitest";
 import { referrerPolicy } from "./referrer-policy";
 
 describe("referrerPolicy", () => {

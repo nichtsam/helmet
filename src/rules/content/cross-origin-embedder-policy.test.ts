@@ -1,4 +1,4 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, test } from "vitest";
 import { crossOriginEmbedderPolicy } from "./cross-origin-embedder-policy";
 
 describe("crossOriginEmbedderPolicy", () => {

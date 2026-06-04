@@ -1,4 +1,4 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, test } from "vitest";
 import { xXssProtection } from "./x-xss-protection";
 
 describe("xXssProtection", () => {

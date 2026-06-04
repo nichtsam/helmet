@@ -1,4 +1,4 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, test } from "vitest";
 import { xDnsPrefetchControl } from "./x-dns-prefetch-control";
 
 describe("xDnsPrefetchControl", () => {

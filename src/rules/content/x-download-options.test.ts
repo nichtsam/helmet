@@ -1,4 +1,4 @@
-import { describe, expect, test } from "bun:test";
+import { describe, expect, test } from "vitest";
 import { xDownloadOptions } from "./x-download-options";
 
 describe("xDownloadOptions", () => {
