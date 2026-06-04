@@ -17,19 +17,20 @@ jobs:
     name: Bump version
     runs-on: ubuntu-latest
     steps:
-      - name: Check out source
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup node
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
+
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "lts/*"
+          node-version: 24
+          cache: "pnpm"
 
-      - name: Setup bun
-        uses: oven-sh/setup-bun@v2
-
-      - name: Install dependencies
-        run: bun install --frozen-lockfile
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
 
       - name: Setup git
         run: |
@@ -41,7 +42,7 @@ jobs:
 
       - name: Quality fix
         run: |
-          bun run quality:fix 
+          pnpm quality:fix 
           git commit -a -m "format"
 
       - name: Push latest version
