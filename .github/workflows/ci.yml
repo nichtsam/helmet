@@ -19,3 +19,6 @@ jobs:
 
       - name: Code Quality
         run: bun run quality
+
+      - name: Unit Test
+        run: bun test
