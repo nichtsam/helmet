@@ -7,6 +7,9 @@
 Helps secure applications by setting HTTP response headers.
 Inspired by [`helmet`](https://github.com/helmetjs/helmet) and [`http-helmet`](https://github.com/mcansh/http-helmet).
 
+**Traditional Helmet applies every header globally.  
+This library applies headers only where they make sense.**
+
 ## Why?
 
 [`helmet`](https://github.com/helmetjs/helmet) applies security headers globally without considering the specific content type of each response. While this approach works for many cases, it can lead to unnecessary or misapplied headers. For example, Content Security Policy (CSP) should be specific to the response’s content type, and `X-Download-Options` only matters for document responses, whereas headers like `X-Content-Type-Options` and `Strict-Transport-Security` are universally applicable.
