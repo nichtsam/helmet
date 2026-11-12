@@ -103,6 +103,32 @@ describe("contentSecurityPolicy", () => {
     expect(headers.get("Content-Security-Policy")).toBe("sandbox");
   });
 
+  test("quotes the require-trusted-types-for keyword", () => {
+    for (const value of ["'script'", "script"] as const) {
+      const headers = new Headers();
+      contentSecurityPolicy(headers, {
+        useDefaults: false,
+        directives: { other: { "require-trusted-types-for": value } },
+      });
+      expect(headers.get("Content-Security-Policy")).toBe(
+        "require-trusted-types-for 'script'",
+      );
+    }
+  });
+
+  test("quotes the trusted-types allow-duplicates keyword", () => {
+    for (const keyword of ["'allow-duplicates'", "allow-duplicates"] as const) {
+      const headers = new Headers();
+      contentSecurityPolicy(headers, {
+        useDefaults: false,
+        directives: { other: { "trusted-types": ["my-policy", keyword] } },
+      });
+      expect(headers.get("Content-Security-Policy")).toBe(
+        "trusted-types my-policy 'allow-duplicates'",
+      );
+    }
+  });
+
   test("does not set an empty policy", () => {
     const headers = new Headers();
     contentSecurityPolicy(headers, { useDefaults: false, directives: {} });

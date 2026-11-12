@@ -74,13 +74,23 @@ export const contentSecurityPolicy = (
     } = rawDirectives.other;
 
     if (requireTrustedTypesFor) {
-      policy.push(`require-trusted-types-for ${requireTrustedTypesFor}`);
+      const sinkGroup =
+        requireTrustedTypesFor === "script"
+          ? "'script'"
+          : requireTrustedTypesFor;
+      policy.push(`require-trusted-types-for ${sinkGroup}`);
     }
 
     if (trustedTypes) {
-      policy.push(
-        `trusted-types ${trustedTypes === "'none'" ? trustedTypes : trustedTypes.filter(Boolean).join(" ")}`,
-      );
+      const expressions =
+        trustedTypes === "'none'"
+          ? [trustedTypes]
+          : trustedTypes
+              .filter(Boolean)
+              .map((value) =>
+                value === "allow-duplicates" ? "'allow-duplicates'" : value,
+              );
+      policy.push(`trusted-types ${expressions.join(" ")}`);
     }
 
     if (upgradeInsecureRequests) {
@@ -184,8 +194,16 @@ type ReportingDirectiveOptions = {
 };
 
 type OtherDirectiveOptions = {
-  "require-trusted-types-for"?: "script";
-  "trusted-types"?: "'none'" | Array<SmartString | "allow-duplicates">;
+  /**
+   * "script" is a deprecated alias of "'script'".
+   */
+  "require-trusted-types-for"?: "'script'" | "script";
+  /**
+   * "allow-duplicates" is a deprecated alias of "'allow-duplicates'".
+   */
+  "trusted-types"?:
+    | "'none'"
+    | Array<SmartString | "'allow-duplicates'" | "allow-duplicates">;
   "upgrade-insecure-requests"?: boolean;
 };
 
