@@ -60,10 +60,10 @@ export function contentSecurity(
 
   switch (options.crossOriginEmbedderPolicy) {
     case undefined:
+    case false:
+      break;
     case true:
       crossOriginEmbedderPolicy(headers);
-      break;
-    case false:
       break;
     default:
       crossOriginEmbedderPolicy(headers, options.crossOriginEmbedderPolicy);
@@ -89,6 +89,9 @@ export type ContentSecureOptions = {
   originAgentCluster?: boolean;
   contentSecurityPolicy?: ContentSecurityPolicyOptions | boolean;
   crossOriginOpenerPolicy?: CrossOriginOpenerPolicyOptions | boolean;
+  /**
+   * Disabled by default.
+   */
   crossOriginEmbedderPolicy?: CrossOriginEmbedderPolicyOptions | boolean;
   xDownloadOptions?: boolean;
   xFrameOptions?: XFrameOptionsOptions | boolean;
