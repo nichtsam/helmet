@@ -74,6 +74,35 @@ describe("contentSecurityPolicy", () => {
     );
   });
 
+  test("supports a single sandbox token", () => {
+    const headers = new Headers();
+    contentSecurityPolicy(headers, {
+      useDefaults: false,
+      directives: { document: { sandbox: "allow-forms" } },
+    });
+    expect(headers.get("Content-Security-Policy")).toBe("sandbox allow-forms");
+  });
+
+  test("supports multiple sandbox tokens", () => {
+    const headers = new Headers();
+    contentSecurityPolicy(headers, {
+      useDefaults: false,
+      directives: { document: { sandbox: ["allow-forms", "allow-scripts"] } },
+    });
+    expect(headers.get("Content-Security-Policy")).toBe(
+      "sandbox allow-forms allow-scripts",
+    );
+  });
+
+  test("sets sandbox without tokens for an empty array", () => {
+    const headers = new Headers();
+    contentSecurityPolicy(headers, {
+      useDefaults: false,
+      directives: { document: { sandbox: [] } },
+    });
+    expect(headers.get("Content-Security-Policy")).toBe("sandbox");
+  });
+
   test("does not set an empty policy", () => {
     const headers = new Headers();
     contentSecurityPolicy(headers, { useDefaults: false, directives: {} });

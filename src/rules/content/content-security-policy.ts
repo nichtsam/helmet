@@ -39,7 +39,7 @@ export const contentSecurityPolicy = (
       );
     }
     if (sandbox) {
-      policy.push(`sandbox ${sandbox}`);
+      policy.push(["sandbox", ...[sandbox].flat()].join(" "));
     }
   }
 
@@ -167,7 +167,11 @@ type FetchDirectiveOptions = {
 
 type DocumentDirectiveOptions = {
   "base-uri"?: "'none'" | SourceExpressionList;
-  sandbox?: SandboxSyntax;
+  /**
+   * Each token grants one permission.
+   * An empty array grants none, applying every sandbox restriction.
+   */
+  sandbox?: SandboxSyntax | SandboxSyntax[];
 };
 
 type NavigationDirectiveOptions = {
