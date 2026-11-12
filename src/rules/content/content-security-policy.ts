@@ -22,6 +22,9 @@ export const contentSecurityPolicy = (
   const policy: string[] = [];
   if (rawDirectives.fetch) {
     for (const [directive, value] of Object.entries(rawDirectives.fetch)) {
+      if (!value) {
+        continue;
+      }
       policy.push(
         `${directive} ${value === "'none'" ? value : value.filter(Boolean).join(" ")}`,
       );

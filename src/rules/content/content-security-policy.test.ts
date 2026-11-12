@@ -43,6 +43,20 @@ describe("contentSecurityPolicy", () => {
     expect(csp).toContain("object-src 'none'");
   });
 
+  test("removes a default fetch directive set to undefined", () => {
+    const headers = new Headers();
+    contentSecurityPolicy(headers, {
+      directives: {
+        fetch: {
+          "script-src-attr": undefined,
+        },
+      },
+    });
+    const csp = headers.get("Content-Security-Policy");
+    expect(csp).not.toContain("script-src-attr");
+    expect(csp).toContain("script-src 'self'");
+  });
+
   test("supports report-only mode", () => {
     const headers = new Headers();
     contentSecurityPolicy(headers, {
