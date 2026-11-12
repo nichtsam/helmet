@@ -7,7 +7,7 @@ import {
 
 /**
  * Applies security headers to a `Headers` instance with sensible defaults.
- * General security headers are always set, while content and resource-sharing headers can be opted in.
+ * General and resource-sharing headers are set by default, while content headers can be opted in.
  */
 export function helmet(headers: Headers, options: HelmetOptions = {}) {
   switch (options.general) {
@@ -32,16 +32,7 @@ export function helmet(headers: Headers, options: HelmetOptions = {}) {
       contentSecurity(headers, options.content);
   }
 
-  switch (options.resourceSharing) {
-    case undefined:
-    case false:
-      break;
-    case true:
-      resourceSharingSecurity(headers);
-      break;
-    default:
-      resourceSharingSecurity(headers, options.resourceSharing);
-  }
+  resourceSharingSecurity(headers, options.resourceSharing);
 }
 
 export type HelmetOptions = {
@@ -59,8 +50,8 @@ export type HelmetOptions = {
   content?: ContentSecureOptions | boolean;
   /**
    * Configures security headers related to resource sharing.
-   * `general` already applies the "same-origin" strategy,
-   * so this is only needed to apply a different one.
+   * Applies the "same-origin" strategy by default.
+   * Use the "custom" strategy to skip the defaults.
    */
-  resourceSharing?: ResourceSharingSecureOptions | boolean;
+  resourceSharing?: ResourceSharingSecureOptions;
 };

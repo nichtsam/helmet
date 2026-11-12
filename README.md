@@ -53,7 +53,7 @@ helmet(headers, {
 });
 ```
 
-If you want to share the resource across origins, you can enable the resourceSharing option.
+Resources are only shared within the same origin by default. To share them across origins, set the resourceSharing strategy.
 
 ```ts
 helmet(headers, { resourceSharing: { strategy: "cross-origin" } });
@@ -97,10 +97,6 @@ const headers = new Headers();
 generalSecurity(headers);
 // after the content-type is set
 contentSecurity(headers);
-// if you want to share across origins
-resourceSharingSecurity(headers, { strategy: "cross-origin" });
+// "same-origin" by default, pass a strategy to share across origins
+resourceSharingSecurity(headers);
 ```
-
-> [!NOTE]  
-> The `generalSecurity` function includes `resourceSharingSecurity(headers, { strategy: "same-origin" })` by default.
-> So you only need to call `resourceSharingSecurity` if you want to share resources across origins or customize the strategy.

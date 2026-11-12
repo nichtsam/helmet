@@ -1,4 +1,3 @@
-import { resourceSharingSecurity } from "./resourceSharing.js";
 import {
   type ReferrerPolicyOptions,
   referrerPolicy,
@@ -24,10 +23,6 @@ export function generalSecurity(
   headers: Headers,
   options: GeneralSecureOptions = {},
 ) {
-  if (options.sameOrigin ?? true) {
-    resourceSharingSecurity(headers, { strategy: "same-origin" });
-  }
-
   switch (options.referrerPolicy) {
     case undefined:
     case true:
@@ -81,7 +76,6 @@ export function generalSecurity(
 }
 
 export type GeneralSecureOptions = {
-  sameOrigin?: boolean;
   referrerPolicy?: ReferrerPolicyOptions | boolean;
   strictTransportSecurity?: StrictTransportSecurityOptions | boolean;
   xContentTypeOptions?: boolean;
