@@ -20,6 +20,11 @@ export const strictTransportSecurity = (
 };
 
 export type StrictTransportSecurityOptions = {
+  /**
+   * How long, in seconds, browsers remember to access the site only over HTTPS.
+   * Must be a non-negative integer, otherwise browsers ignore the whole header.
+   * Defaults to one year.
+   */
   maxAge?: number;
   includeSubDomains?: boolean;
   preload?: boolean;

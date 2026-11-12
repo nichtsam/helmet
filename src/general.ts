@@ -79,6 +79,10 @@ export type GeneralSecureOptions = {
   referrerPolicy?: ReferrerPolicyOptions | boolean;
   strictTransportSecurity?: StrictTransportSecurityOptions | boolean;
   xContentTypeOptions?: boolean;
+  /**
+   * `true` sends `"X-DNS-Prefetch-Control: off"`, disabling DNS prefetching.
+   * `false` sends no header.
+   */
   xDnsPrefetchControl?: XDnsPrefetchControlOptions | boolean;
   xPermittedCrossDomainPolicies?:
     | XPermittedCrossDomainPoliciesOptions

@@ -95,5 +95,9 @@ export type ContentSecureOptions = {
   crossOriginEmbedderPolicy?: CrossOriginEmbedderPolicyOptions | boolean;
   xDownloadOptions?: boolean;
   xFrameOptions?: XFrameOptionsOptions | boolean;
+  /**
+   * `true` sends `"X-XSS-Protection: 0"`, disabling the browser's XSS filter.
+   * `false` sends no header.
+   */
   xXssProtection?: boolean;
 };
