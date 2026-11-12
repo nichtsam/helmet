@@ -59,4 +59,10 @@ describe("contentSecurityPolicy", () => {
       "default-src 'self'",
     );
   });
+
+  test("does not set an empty policy", () => {
+    const headers = new Headers();
+    contentSecurityPolicy(headers, { useDefaults: false, directives: {} });
+    expect(headers.has("Content-Security-Policy")).toBe(false);
+  });
 });

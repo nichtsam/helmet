@@ -100,6 +100,10 @@ export const contentSecurityPolicy = (
     }
   }
 
+  if (policy.length === 0) {
+    return headers;
+  }
+
   headers.set(
     reportOnly
       ? "Content-Security-Policy-Report-Only"
