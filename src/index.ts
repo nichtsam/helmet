@@ -58,8 +58,9 @@ export type HelmetOptions = {
    */
   content?: ContentSecureOptions | boolean;
   /**
-   * Configures security headers related to resource sharing (CORS).
-   * Disabled by default.
+   * Configures security headers related to resource sharing.
+   * `general` already applies the "same-origin" strategy,
+   * so this is only needed to apply a different one.
    */
   resourceSharing?: ResourceSharingSecureOptions | boolean;
 };

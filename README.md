@@ -56,7 +56,7 @@ helmet(headers, {
 If you want to share the resource across origins, you can enable the resourceSharing option.
 
 ```ts
-helmet(headers, { resourceSharing: true });
+helmet(headers, { resourceSharing: { strategy: "cross-origin" } });
 ```
 
 > [!IMPORTANT]  
