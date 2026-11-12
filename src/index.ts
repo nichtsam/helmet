@@ -5,11 +5,6 @@ import {
   resourceSharingSecurity,
 } from "./resourceSharing.js";
 
-const headers = new Headers();
-helmet(headers, { content: { contentSecurityPolicy: {} } });
-
-helmet(headers, { resourceSharing: true });
-
 /**
  * Applies security headers to a `Headers` instance with sensible defaults.
  * General security headers are always set, while content and resource-sharing headers can be opted in.
